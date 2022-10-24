@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const myDataSource = require("./models/db.config");
+const passport = require("passport");
 
 // DB 연결
 myDataSource
@@ -24,6 +25,10 @@ const createApp = () => {
   app.use(morgan("dev"));
   app.use(router);
   app.use(errorHandler);
+  app.use(express.static("public"));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   return app;
 };
 
